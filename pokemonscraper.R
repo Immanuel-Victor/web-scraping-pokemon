@@ -14,9 +14,12 @@ rs_driver_object<- rsDriver(
   geckover = "0.31.0",
   verbose = F,
 )
+#Use rsDriver() para usar o chrome como padrão ou rsDriver(browser = "internet explorer") para o internet explorer
 
 remDr <- rs_driver_object$client
 
 remDr$open()
 remDr$navigate("https://www.pokemon.com/br/pokedex/")
-#Use rsDriver() para usar o chrome como padrão ou rsDriver(browser = "internet explorer") para o internet explorer
+remDr$maxWindowSize()
+
+remDr$findElement(using = 'link text', "Carregar mais Pokémon")$clickElement()
