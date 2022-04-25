@@ -40,3 +40,6 @@ todos_pokemons <- lapply(info_pokemon, function(textos) {
 }) %>% flatten_chr()
 write.csv(todos_pokemons, "Pokémons.csv")
 
+remDr$closeWindow()
+
+system("taskkill /im java.exe /f")
