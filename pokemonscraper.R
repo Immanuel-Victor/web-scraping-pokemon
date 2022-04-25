@@ -22,8 +22,21 @@ remDr$open()
 remDr$navigate("https://www.pokemon.com/br/pokedex/")
 remDr$maxWindowSize()
 
-info_pokemon <- remDr$findElements(using = 'xpath', '//div[@class="pokemon-info"]')
-info_pokemon$getElementText()
+Sys.sleep(15)
+
 remDr$findElement(using = 'link text', "Carregar mais Pokémon")$clickElement()
+
+for(i in 1:2){
+for(i in 1:50){
 remDr$executeScript('window.scrollTo(0, document.body.scrollHeight);')
+Sys.sleep(3)
+}
+  }
+
+info_pokemon <- remDr$findElements(using = 'xpath', '//div[@class="pokemon-info"]')
+
+todos_pokemons <- lapply(info_pokemon, function(textos) {
+  textos$getElementText() %>% unlist()
+}) %>% flatten_chr()
+write.csv(todos_pokemons, "Pokémons.csv")
 
