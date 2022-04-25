@@ -22,4 +22,8 @@ remDr$open()
 remDr$navigate("https://www.pokemon.com/br/pokedex/")
 remDr$maxWindowSize()
 
+info_pokemon <- remDr$findElements(using = 'xpath', '//div[@class="pokemon-info"]')
+info_pokemon$getElementText()
 remDr$findElement(using = 'link text', "Carregar mais Pokémon")$clickElement()
+remDr$executeScript('window.scrollTo(0, document.body.scrollHeight);')
+
