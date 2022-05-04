@@ -38,13 +38,13 @@ info_pokemon <- remDr$findElements(using = 'xpath', '//div[@class="pokemon-info"
 todos_pokemons <- lapply(info_pokemon, function(textos) {
   textos$getElementText() %>% unlist()
 }) %>% flatten_chr()
-write.csv(todos_pokemons, "Pokémons.csv")
+write.csv(todos_pokemons, "planilha_pokemons.csv")
 
 remDr$closeWindow()
 
 system("taskkill /im java.exe /f")
 
-tabela_Pokemons <- read_csv(file.choose("/teste_1.csv"))
+tabela_Pokemons <- read_csv(file.choose())
 
 tabela_usavel <- as_tibble(tabela_Pokemons)
 
@@ -54,6 +54,6 @@ new_table<-separate(tabela_usavel, x, sep = "\n",
                     into = c("id", "pokemons","type1","type2"))
 new_table<- replace_na(new_table, list(type2 = ""))
 
-write_csv(new_table, "pokemons.csv")
+write_csv(new_table, "planilha_pokemons.csv")
 
 view(new_table)
