@@ -3,7 +3,7 @@ install.packages(c("netstat","RSelenium","tidyverse", "rvest", "stringr", "LSAfu
 
 # Carrega os pacotes para uso
 
-Packages <- c("netstat","RSelenium","tidyverse", "rvest", "stringr", "LSAfun", "lubridate")
+Packages <- c("netstat","RSelenium","tidyverse", "rvest", "stringr", "LSAfun", "lubridate", "readr")
 lapply(Packages, library, character.only = TRUE)
 
 # Começo do Script -----------------------------------------------------------------------------------------------------------------------------------
@@ -43,3 +43,17 @@ write.csv(todos_pokemons, "Pokémons.csv")
 remDr$closeWindow()
 
 system("taskkill /im java.exe /f")
+
+tabela_Pokemons <- read_csv(file.choose("/teste_1.csv"))
+
+tabela_usavel <- as_tibble(tabela_Pokemons)
+
+tabela_usavel
+
+new_table<-separate(tabela_usavel, x, sep = "\n",
+                    into = c("id", "pokemons","type1","type2"))
+new_table<- replace_na(new_table, list(type2 = ""))
+
+write_csv(new_table, "pokemons.csv")
+
+view(new_table)
